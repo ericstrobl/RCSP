@@ -1,4 +1,4 @@
-DSDP <- function(bulk_samps,reg="KRR"){# needs bulk samples
+DSDP <- function(bulk_samps,reg="KRR",desL=NULL){# needs bulk samples
   # Similar to the RCSP algorithm but computes Deviation of Statistical Dependence (D-SD) by removing the conditioning on the surrogate ancestors
   # 
   # bulk_samps denotes a list of bulk RNAseq samples, where:
@@ -9,10 +9,13 @@ DSDP <- function(bulk_samps,reg="KRR"){# needs bulk samples
   # reg is set to either "KRR" for kernel ridge regression, or "MARS" for multivariate adaptive regression splines
   #     KRR is good for dense output, MARS is good for speed
   #
+  # desL corresponds to the list of descendants inferred from Perturb-seq. This is computed inside the algorithm by default.
   
   require(earth)#
   
-  desL = find_des_final(bulk_samps)
+  if (is.null(desL)){
+    desL = find_des_final(bulk_samps)
+  }
   
   interv = desL$interv
   desL = desL$desL
