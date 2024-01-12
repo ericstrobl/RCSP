@@ -6,6 +6,6 @@ Author: Eric V. Strobl
 Maintainer: Eric V. Strobl <ericvonstrobl@gmail.com>
 Description: Computes root causal strength scores to identify root causal genes
 Depends: MASS, pcalg, earth, fastcluster
-License: CC BY-NC 4.0
+License: CC BY-NC-SA 4.0
 Encoding: UTF-8
 LazyData: true
