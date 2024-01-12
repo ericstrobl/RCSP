@@ -1,4 +1,4 @@
-Package: CCI
+Package: RCSP
 Type: Package
 Title: Root Causal Strength from Perturbations
 Version: 0.1.0
