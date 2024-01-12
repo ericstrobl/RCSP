@@ -1,6 +1,6 @@
 # Root Causal Strength from Perturbations (RCSP)
 
-This is an R package implementing RCSP, an algorithm for discovering root causal genes from a combination of bulk RNA-seq and Perturb-seq. RCSP estimatrd root causal strength of a variable $X_i$ on a target variable $Y$. The root causal strength score is defined as $|E(Y|Pa(X_i),X_i) - E(Y|Pa(X_i))|$ and measures the root causal effect of the root vertex error term $E_i$ on $Y$ given $Pa(X_i)$.
+This is an R package implementing RCSP, an algorithm for discovering root causal genes from a combination of bulk RNA-seq and Perturb-seq. RCSP estimatrd root causal strength of a variable $X_i$ on a target variable $Y$. The root causal strength score is defined as $|E(Y|\textnormal{Pa}(X_i),X_i) - E(Y|\textnormal{Pa}(X_i))|$ and measures the root causal effect of the root vertex error term $E_i$ on $Y$ given $Pa(X_i)$.
 
 The academic article describing DDR in detail can be found [here](). Please cite the article if you use any of the code in this repository.
 
