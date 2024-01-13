@@ -4,7 +4,7 @@ This is an R package implementing RCSP, an algorithm for discovering root causal
 
 The academic article describing RCSP in detail can be found [here](). Please cite the article if you use any of the code in this repository.
 
-The Experiments folder contains the additional code needed to replicate the experimental results in the paper.
+The Experiments folder contains any additional code needed to replicate the experimental results in the paper.
 
 # Installation
 
