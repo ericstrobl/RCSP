@@ -41,6 +41,9 @@ cl <- hclust.vector(data.umap, method="ward")
 plot(rev(cl$height)[1:20])
 ix = cutree(cl, k = 4)
 
+# UMAP embedding with clusters
+plot(data.umap,col=ix)
+
 # pathway enrichment analysis
 
 # require(fastcluster)
@@ -117,9 +120,6 @@ fgseaRes <- fgsea(drug2gene, stats, nPermSimple = 100000, scoreType="pos")
 
 head(fgseaRes[order(pval), ])
 -log(fgseaRes[order(pval)][1:6,padj])
-
-# UMAP embedding with clusters
-plot(data.umap,col=ix)
 
 # graded gene UMAP embedding
 require(dplyr)
