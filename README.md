@@ -8,7 +8,7 @@ The academic article describing RCSP in detail can be found [here](). Please cit
 
 > if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
 
-> BiocManager::install(c("fgsea","qvalue","org.Hs.eg.db"))
+> BiocManager::install(c("fgsea","qvalue","org.Hs.eg.db","reactome.db"))
 
 > library(devtools)
 
