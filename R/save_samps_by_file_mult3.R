@@ -1,19 +1,18 @@
-save_samps_by_file_mult2 <- function(DAG2,sc_batches,nsamps=200){
+save_samps_by_file_mult3 <- function(DAG2,nsamps=200){
   
   cnt = -1
   sampsA = list(); sampsA$data = c(); sampsA$dataT = c(); sampsA$batches = c(); sampsA$interv = c()
   
-  for (j in 0:(ncol(DAG2$DAGs$graph)-1)){ #5000 interventions
+  sc_batches = 1:DAG2$DAGs$n_batch
+  
+  for (j in 0:(ncol(DAG2$DAGs$graph)-1)){
     cnt = cnt + 1
     # print(j)
     DAGs = DAG2$DAGs
     if (j > 0){
       DAGs$off[j] = -2  # knockdown
-      # DAGs$subgroups[j] = 3  # knockdown
     }
-    # samps = sample_DAG_NB_noME4(nsamps,DAGs) #######
     samps = sample_DAG_NB_linear(nsamps,DAGs) #######
-    # samps = sample_DAG_NB_noME3(nsamps,DAGs) ########
     
     sampsA$data = rbind(sampsA$data, samps$data[1:nsamps,])
     sampsA$batches = c(sampsA$batches, samps$batches[1:nsamps])
@@ -46,9 +45,6 @@ save_samps_by_file_mult2 <- function(DAG2,sc_batches,nsamps=200){
           samps$ix = c(samps$ix, which(sampsA$batches[sampsA$interv==jj]==b))
         }
         
-        # ix = ix-nsamps*floor(ix/(nsamps))
-        # ix[which(ix==0)]=200
-        # samps$ix = c(samps$ix, ix) # index in terms of intervention file
         save(file=paste("samps_batch",as.character(b),"_synth.RData",sep=""),samps)
       }
       
