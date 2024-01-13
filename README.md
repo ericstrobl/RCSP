@@ -6,6 +6,10 @@ The academic article describing RCSP in detail can be found [here](). Please cit
 
 # Installation
 
+> if (!require("BiocManager", quietly = TRUE)) install.packages("BiocManager")
+
+> BiocManager::install(c("fgsea","qvalue","org.Hs.eg.db"))
+
 > library(devtools)
 
 > install_github("ericstrobl/RCSP")
