@@ -13,7 +13,7 @@ The academic article describing RCSP in detail can be found [here](). Please cit
 > library(RCSP)
 
 # Run RCSP on sythetic data
-
+generate DAG over 100 variables with an expected neighborhood size of 2:
 > DAG = generate_DAG_big_same4(p=100,en=2) # generate DAG over 100 variables with an expected neighborhood size of 2
 
 > nsamps = 200 # number of samples for bulk RNA-seq and per perturbation for Perturb-seq
