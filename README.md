@@ -30,7 +30,7 @@ Run RCSP:
 > out = RCSP(samps, reg="MARS")
 
 # Run RCSP on AMD data
-Download the Data folder and place its contents into the working directory. Then load bulk RNA-seq data:
+Download Data.zip, unzip its contents and place them into the working directory. Then load bulk RNA-seq data:
 > load("samps_bulk_AMD2.RData") 
 
 Load descendants of each variable precomputed from Perturb-seq:
@@ -40,7 +40,7 @@ Run RCSP:
 > out = RCSP(samps,desL) # takes about 8 hours on my machine (2.30 GHz CPU, 16 GB RAM)
 
 # Run RCSP on MS data
-Download the Data folder and place its contents into the working directory. Then load bulk RNA-seq data:
+Download Data.zip, unzip its contents and place them into the working directory. Then load bulk RNA-seq data:
 > load("samps_bulk_MS2.RData")
 
 Load descendants of each variable precomputed from Perturb-seq:
