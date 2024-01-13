@@ -30,7 +30,7 @@ Load bulk RNA-seq data:
 > load("samps_bulk_AMD2.RData") 
 
 Load descendants of each variable precomputed from Perturb-seq:
-> load("desL_AMD.RData") # I will upload processed Perturb-seq data on Zenodo when paper is published (4.5 GB)
+> load("desL_AMD.RData") # I will upload processed Perturb-seq data on Zenodo when paper is published (200 MG)
 
 Run RCSP:
 > out = RCSP(samps,desL) # takes about 8 hours on my machine (2.30 GHz CPU, 16 GB RAM)
@@ -40,7 +40,7 @@ Load bulk RNA-seq data:
 > load("samps_bulk_MS2.RData")
 
 Load descendants of each variable precomputed from Perturb-seq:
-> load("desL_nonsparse_MS.RData") # I will upload processed Perturb-seq data on Zenodo when paper is published (200 MB)
+> load("desL_nonsparse_MS.RData") # I will upload processed Perturb-seq data on Zenodo when paper is published (4.5 GB)
 
 Run RCSP:
 > out = RCSP(samps,desL) # takes about 2 hours on my machine
