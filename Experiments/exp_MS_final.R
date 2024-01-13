@@ -10,7 +10,7 @@ load("desL_MS.RData")
 # age histogram
 RCS_age = get_ctrl_RCE_nonsparse(samps,2)
 sqrt(mean(RCS_age^2))
-hist(RCS_age)
+hist(abs(RCS_age))
 
 # Run RCSP
 # alg_out = RCSP(samps,desL)  ## takes ~2 hours
