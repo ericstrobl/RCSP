@@ -46,37 +46,37 @@ for (i in 1:reps){
   print("RCSP")
   ptm <- proc.time()
   shaps = RCSP(samps,desL,reg="MARS")  ##
-  RCSP_res[[i]]DAG$time = (proc.time() - ptm)[3]
-  RCSP_res[[i]]DAG$RMSE_RE = compute_RMSE3(tr,shaps,ncol(samps$data))$RMSE_REs
-  RCSP_res[[i]]DAG$clusters = root_SS3(tr,shaps,ncol(samps$data))
+  RCSP_res[[i]]$time = (proc.time() - ptm)[3]
+  RCSP_res[[i]]$RMSE_RE = compute_RMSE3(tr,shaps,ncol(samps$data))$RMSE_REs
+  RCSP_res[[i]]$clusters = root_SS3(tr,shaps,ncol(samps$data))
   
   print("univariate regression")
   ptm <- proc.time()
   shaps = cor_norm(samps,desL,stable) ##
-  correl_res[[i]]DAG$time = (proc.time() - ptm)[3]
-  correl_res[[i]]DAG$RMSE_RE = compute_RMSE3(tr,shaps,ncol(samps$data))$RMSE_REs
-  correl_res[[i]]DAG$clusters = root_SS3(tr,shaps,ncol(samps$data))
+  correl_res[[i]]$time = (proc.time() - ptm)[3]
+  correl_res[[i]]$RMSE_RE = compute_RMSE3(tr,shaps,ncol(samps$data))$RMSE_REs
+  correl_res[[i]]$clusters = root_SS3(tr,shaps,ncol(samps$data))
   
   print("multivariate regression")
   ptm <- proc.time()
   shaps = reg_norm(samps,desL,stable) ##
-  reg_res[[i]]DAG$time = (proc.time() - ptm)[3]
-  reg_res[[i]]DAG$RMSE_RE = compute_RMSE3(tr,shaps,ncol(samps$data))$RMSE_REs
-  reg_res[[i]]DAG$clusters = root_SS3(tr,shaps,ncol(samps$data))
+  reg_res[[i]]$time = (proc.time() - ptm)[3]
+  reg_res[[i]]$RMSE_RE = compute_RMSE3(tr,shaps,ncol(samps$data))$RMSE_REs
+  reg_res[[i]]$clusters = root_SS3(tr,shaps,ncol(samps$data))
   
   print("ANM")
   ptm <- proc.time()
   shaps = ANM_norm(samps,desL,stable) ##
-  ANM_res[[i]]DAG$time = (proc.time() - ptm)[3]
-  ANM_res[[i]]DAG$RMSE_RE = compute_RMSE3(tr,shaps,ncol(samps$data))$RMSE_REs
-  ANM_res[[i]]DAG$clusters = root_SS3(tr,shaps,ncol(samps$data))
+  ANM_res[[i]]$time = (proc.time() - ptm)[3]
+  ANM_res[[i]]$RMSE_RE = compute_RMSE3(tr,shaps,ncol(samps$data))$RMSE_REs
+  ANM_res[[i]]$clusters = root_SS3(tr,shaps,ncol(samps$data))
   
   print("LiNGAM")
   ptm <- proc.time()
   shaps = lin_norm(samps,desL,stable) ##
-  lin_res[[i]]DAG$time = (proc.time() - ptm)[3]
-  lin_res[[i]]DAG$RMSE_RE = compute_RMSE3(tr,shaps,ncol(samps$data))$RMSE_REs
-  lin_res[[i]]DAG$clusters = root_SS3(tr,shaps,ncol(samps$data))
+  lin_res[[i]]$time = (proc.time() - ptm)[3]
+  lin_res[[i]]$RMSE_RE = compute_RMSE3(tr,shaps,ncol(samps$data))$RMSE_REs
+  lin_res[[i]]$clusters = root_SS3(tr,shaps,ncol(samps$data))
   
   save(file="Results_synth.RData", Gs, RCSP_res, reg_res, correl_res, ANM_res, lin_res)
   
@@ -86,11 +86,11 @@ for (i in 1:reps){
 imax = 30
 scores = matrix(0,imax,5)
 for (i in 1:imax){
-  scores[i,1] = RCSP_res[[i]]DAG$RMSE_RE
-  scores[i,2] = reg_res[[i]]DAG$RMSE_RE
-  scores[i,3] = correl_res[[i]]DAG$RMSE_RE
-  scores[i,4] = ANM_res[[i]]DAG$RMSE_RE
-  scores[i,5] = lin_res[[i]]DAG$RMSE_RE
+  scores[i,1] = RCSP_res[[i]]$RMSE_RE
+  scores[i,2] = reg_res[[i]]$RMSE_RE
+  scores[i,3] = correl_res[[i]]$RMSE_RE
+  scores[i,4] = ANM_res[[i]]$RMSE_RE
+  scores[i,5] = lin_res[[i]]$RMSE_RE
   
 }
 colMeans(scores)
@@ -102,11 +102,11 @@ colMeans(scores)-apply(scores,2,sd)*1.96/sqrt(imax)
 imax = 30
 scores = matrix(0,imax,5)
 for (i in 1:imax){
-  scores[i,1] = RCSP_res[[i]]DAG$time + Gs[[i]]$time_desL
-  scores[i,2] = reg_res[[i]]DAG$time
-  scores[i,3] = correl_res[[i]]DAG$time
-  scores[i,4] = ANM_res[[i]]DAG$time + Gs[[i]]$time_desL
-  scores[i,5] = lin_res[[i]]DAG$time + Gs[[i]]$time_desL
+  scores[i,1] = RCSP_res[[i]]$time + Gs[[i]]$time_desL
+  scores[i,2] = reg_res[[i]]$time
+  scores[i,3] = correl_res[[i]]$time
+  scores[i,4] = ANM_res[[i]]$time + Gs[[i]]$time_desL
+  scores[i,5] = lin_res[[i]]$time + Gs[[i]]$time_desL
   
 }
 colMeans(scores)
@@ -118,11 +118,11 @@ write.csv(file="time_synth.csv",scores)
 # RMSE clusters
 scores = array(0,dim=c(imax,5,10))
 for (i in 1:imax){
-  scores[i,1,] = RCSP_res[[i]]DAG$clusters$RMSE_RE
-  scores[i,2,] = reg_res[[i]]DAG$clusters$RMSE_RE
-  scores[i,3,] = correl_res[[i]]DAG$clusters$RMSE_RE
-  scores[i,4,] = ANM_res[[i]]DAG$clusters$RMSE_RE
-  scores[i,5,] = lin_res[[i]]DAG$clusters$RMSE_RE
+  scores[i,1,] = RCSP_res[[i]]$clusters$RMSE_RE
+  scores[i,2,] = reg_res[[i]]$clusters$RMSE_RE
+  scores[i,3,] = correl_res[[i]]$clusters$RMSE_RE
+  scores[i,4,] = ANM_res[[i]]$clusters$RMSE_RE
+  scores[i,5,] = lin_res[[i]]$clusters$RMSE_RE
   
 }
 apply(scores,c(2,3),mean)
