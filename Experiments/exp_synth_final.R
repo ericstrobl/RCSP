@@ -47,6 +47,7 @@ for (i in 1:reps){
   ptm <- proc.time()
   shaps = RCSP(samps,desL,reg="MARS")  ##
   RCSP_res[[i]]$time = (proc.time() - ptm)[3]
+  names(shaps)[1]="REs"
   RCSP_res[[i]]$RMSE_RE = compute_RMSE3(tr,shaps,ncol(samps$data))$RMSE_REs
   RCSP_res[[i]]$clusters = root_SS3(tr,shaps,ncol(samps$data))
   
