@@ -1,11 +1,11 @@
 
 
 # load bulk RNA-seq data
-load("samps_bulk_MS2.RData")
+load("samps_bulk_AMD2.RData")
 genes = colnames(samps$data)
 
 # load precomputed descendants
-load("desL_nonsparse_MS.RData")
+load("desL_AMDS.RData")
 
 # age histogram
 RCS_age = get_ctrl_RCE_nonsparse(samps,2)
@@ -13,10 +13,10 @@ sqrt(mean(RCS_age^2))
 hist(RCS_age)
 
 # Run RCSP
-alg_out = RCSP(samps,desL)  ## takes ~2 hours
+alg_out = RCSP(samps,desL)  ## takes ~8 hours
 
 # Compute D-SD
-alg_out_DSD = DSD(samps,desL)  ## takes ~2 hours
+alg_out_DSD = DSD(samps,desL)  ## takes ~8 hours
 
 # histogram of D-RCS vs D-SD
 hist(sqrt(colMeans(alg_out$RCS^2)))
@@ -30,12 +30,12 @@ cbind(alg_out$genes[ix],sqrt(colMeans(alg_out$RCS^2))[ix])
 
 # require(fastcluster)
 # cl <- hclust.vector(data.umap, method="ward") # use this for cluster-specific enrichment analysis
-# ix = cutree(cl, k = 3)
+# ix = cutree(cl, k = 4)
 
 stats = c()
 for (j in 1:ncol(alg_out$RCS)){
   stats = c(stats,sqrt(mean(alg_out$RCS[,j]^2)))
-  # stats = c(stats,sqrt(mean(alg_out$RCS[ix==3,j]^2))) # use this for cluster-specific enrichment analysis, ix=3 means cluster 3
+  # stats = c(stats,sqrt(mean(alg_out$RCS[ix==1,j]^2))) # use this for cluster-specific enrichment analysis, ix=1 means cluster 1
 }
 genesC = alg_out$genes
 
@@ -60,12 +60,12 @@ print(fgseaRes[pathway %in% collapsedPathways$mainPathways][order(pval)][1:20,])
 
 # require(fastcluster)
 # cl <- hclust.vector(data.umap, method="ward") # use this for cluster-specific enrichment analysis
-# ix = cutree(cl, k = 3)
+# ix = cutree(cl, k = 4)
 
 stats = c()
 for (j in 1:ncol(alg_out$RCS)){
   stats = c(stats,sqrt(mean(alg_out$RCS[,j]^2)))
-  # stats = c(stats,sqrt(mean(alg_out$RCS[ix==3,j]^2))) # use this for cluster-specific enrichment analysis, ix=3 means cluster 3
+  # stats = c(stats,sqrt(mean(alg_out$RCS[ix==1,j]^2))) # use this for cluster-specific enrichment analysis, ix=1 means cluster 1
 }
 genesC = alg_out$genes
 
@@ -115,28 +115,19 @@ plot(data.umap[,1],data.umap[,2])
 # cluster SS plot
 cl <- hclust.vector(data.umap, method="ward")
 plot(rev(cl$height)[1:20])
-ix = cutree(cl, k = 3)
+ix = cutree(cl, k = 4)
 
 # UMAP embedding with clusters
 plot(data.umap,col=ix)
 
 # graded gene UMAP embedding
 require(dplyr)
-gene_name = "MNT"
+gene_name = "SLC7A5"
 plot(data.umap[,1],data.umap[,2],col=make_colour_gradient(ntile(abs(alg_out$RCS[,alg_out$genes==gene_name]),4)))
 write.csv(file="UMAP_MNT_MS_controls0.csv",cbind(data.umap,ntile(abs(alg_out$RCS[,alg_out$genes==gene_name]), 4)))
 
 # graded severity UMAP embedding
 plot(data.umap[,1],data.umap[,2],col=make_colour_gradient(ntile(samps$data[,ncol(samps$data)], 4)))
-
-## types
-require(fastcluster)
-cl <- hclust.vector(data.umap, method="ward")
-ix = cutree(cl, k = 3)
-
-table(samps$types[ix==1])/sum(ix==1)
-table(samps$types[ix==2])/sum(ix==2)
-table(samps$types[ix==3])/sum(ix==3)
 
 
 ### correlation with UMAP dimension
@@ -155,5 +146,4 @@ iy = order(abs(stats),decreasing=TRUE)
 mat = cbind(alg_out$genes[ix[1:30]][iy],stats[iy],CIs[iy,])
 require(qvalue)
 qvalue(ps[iy],pi0=1)
-  
-  
+
