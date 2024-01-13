@@ -41,7 +41,7 @@ RCSP <- function(bulk_samps,reg="KRR"){# needs bulk samples
     if (reg == "KRR"){
       psi1_1 = CV_KRR(cbind(data[,c(pa,interv[i])],ind,bulk_samps$controls),data[,Yi],maxY,minY)
       psi1_2 = CV_KRR(cbind(data[,pa],ind,bulk_samps$controls),data[,Yi],maxY,minY)
-    } else if (reg == "KRR"){
+    } else if (reg == "MARS"){
       psi1_1 = earth(cbind(data[,c(pa,interv[i])],ind,bulk_samps$controls),data[,Yi])$fitted.values
       psi1_2 = earth(cbind(data[,pa],ind,bulk_samps$controls),data[,Yi])$fitted.values
     }
