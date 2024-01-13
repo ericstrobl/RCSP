@@ -21,8 +21,10 @@ Set number of samples for bulk RNA-seq and per perturbation for Perturb-seq:
 
 Generate Perturb-seq data:
 > save_samps_by_file_mult2(DAG, sc_batches=1:DAG$DAGs$n_batch, nsamps=200)
+
 Geberate bulk RNA-seq data:
 > samps = sample_DAG_NB_linear(nsamps,DAG$DAGb)
+
 Run RCSP:
 > out = RCSP(samps)
 
