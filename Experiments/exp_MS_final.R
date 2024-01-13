@@ -28,6 +28,24 @@ hist(sqrt(colMeans(alg_out_DSD$RCS^2)))
 ix = order(sqrt(colMeans(alg_out$RCS^2)),decreasing=TRUE)
 cbind(alg_out$genes[ix],sqrt(colMeans(alg_out$RCS^2))[ix])
 
+# UMAP embedding
+require(uwot)
+cov0 = cov(abs(cbind(alg_out$RCS,RCS_age)))
+eig = eigen(cov0)
+data0 = abs(cbind(alg_out$RCS,RCS_age)) %*% eig$vectors[,1:10]
+
+data.umap = uwot::umap(data0)
+plot(data.umap[,1],data.umap[,2])
+
+# cluster SS plot
+require(fastcluster)
+cl <- hclust.vector(data.umap, method="ward")
+plot(rev(cl$height)[1:20])
+ix = cutree(cl, k = 3)
+
+# UMAP embedding with clusters
+plot(data.umap,col=ix)
+
 # pathway enrichment analysis
 
 # require(fastcluster)
@@ -104,24 +122,6 @@ fgseaRes <- fgsea(drug2gene, stats, nPermSimple = 100000, scoreType="pos")
 
 head(fgseaRes[order(pval), ])
 -log(fgseaRes[order(pval)][1:6,padj])
-
-# UMAP embedding
-require(uwot)
-cov0 = cov(abs(cbind(alg_out$RCS,RCS_age)))
-eig = eigen(cov0)
-data0 = abs(cbind(alg_out$RCS,RCS_age)) %*% eig$vectors[,1:10]
-
-data.umap = uwot::umap(data0)
-plot(data.umap[,1],data.umap[,2])
-
-# cluster SS plot
-require(fastcluster)
-cl <- hclust.vector(data.umap, method="ward")
-plot(rev(cl$height)[1:20])
-ix = cutree(cl, k = 3)
-
-# UMAP embedding with clusters
-plot(data.umap,col=ix)
 
 # graded gene UMAP embedding
 require(dplyr)
