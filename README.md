@@ -33,7 +33,7 @@ Load descendants of each variable precomputed from Perturb-seq:
 > load("desL_AMD.RData")
 
 Run RCSP:
-> out = RCSP(samps,desL) # takes about 8 hours on my machine (2.30 GHz CPU, 16GB RAM)
+> out = RCSP(samps,desL) # takes about 8 hours on my machine (2.30 GHz CPU, 16 GB RAM)
 
 # Run RCSP on MS data
 Load bulk RNA-seq data:
