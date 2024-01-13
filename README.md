@@ -19,16 +19,28 @@ Generate DAG over 100 variables with an expected neighborhood size of 2:
 Generate Perturb-seq data with 200 samples per perturbation:
 > save_samps_by_file_mult3(DAG, nsamps=200)
 
-Geberate 200 samples of bulk RNA-seq data:
+Generate 200 samples of bulk RNA-seq data:
 > samps = sample_DAG_NB_linear(200,DAG$DAGb)
 
 Run RCSP:
 > out = RCSP(samps)
 
-# Run RCSP on real data
+# Run RCSP on AMD data
+Load bulk RNA-seq data for MS:
+> load("samps_bulk_AMD2.RData")
 
-> load("MS_bulk_and_perturb.RData")
+Load precomputed descendants of each variable:
+> load("desL_AMD.RData")
 
-> desL = find_des2(samps)
+Run RCSP:
+> out = RCSP(samps,desL)
 
-> out = RCSP(samps,desL)  ## outputs RCS scores and gene names
+# Run RCSP on MS data
+Load bulk RNA-seq data for MS:
+> load("samps_bulk_MS2.RData")
+
+Load precomputed descendants of each variable:
+> load("desL_nonsparse_MS.RData")
+
+Run RCSP:
+> out = RCSP(samps,desL)
