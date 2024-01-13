@@ -1,4 +1,4 @@
-RCSP <- function(bulk_samps,reg="KRR"){# needs bulk samples
+RCSP <- function(bulk_samps, desL = NULL, reg="KRR"){# needs bulk samples
   #
   # bulk_samps denotes a list of bulk RNAseq samples, where:
   #     (1) bulk_samps$data contains RNA counts
@@ -10,8 +10,8 @@ RCSP <- function(bulk_samps,reg="KRR"){# needs bulk samples
   #
   
   require(earth)#
-  
-  desL = find_des_final(bulk_samps)
+
+  if (is.null(desL)) desL = find_des_final(bulk_samps)
   
   interv = desL$interv
   desL = desL$desL
