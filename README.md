@@ -29,7 +29,7 @@ Run RCSP:
 Load bulk RNA-seq data for MS:
 > load("samps_bulk_AMD2.RData")
 
-Load precomputed descendants of each variable:
+Load descendants of each variable precomputed from Perturb-seq:
 > load("desL_AMD.RData")
 
 Run RCSP:
@@ -39,7 +39,7 @@ Run RCSP:
 Load bulk RNA-seq data for MS:
 > load("samps_bulk_MS2.RData")
 
-Load precomputed descendants of each variable:
+Load descendants of each variable precomputed from Perturb-seq:
 > load("desL_nonsparse_MS.RData")
 
 Run RCSP:
