@@ -20,11 +20,11 @@ save_samps_by_file_mult3 <- function(DAG2,nsamps=200){
     
     dataT = samps$dataT
     samps$dataT = c(); samps$data = samps$data[1:nsamps,]; samps$batches = samps$batches[1:nsamps]
-    save(file=paste("samps_interv",as.character(j),"_synth.RData",sep=""),samps) #data, batches
+    save(file=paste("samps_interv",as.character(j),".RData",sep=""),samps) #data, batches
     
     samps$dataT = dataT
     samps$data = c(); samps$batches = c()
-    save(file=paste("samps_intervT",as.character(j),"_synth.RData",sep=""),samps) #dataT
+    save(file=paste("samps_intervT",as.character(j),".RData",sep=""),samps) #dataT
     
     
     if ( (cnt == 250) | j== (ncol(DAG2$DAGs$graph)-1) ){
@@ -32,7 +32,7 @@ save_samps_by_file_mult3 <- function(DAG2,nsamps=200){
       for (b in sc_batches){
         ix = which(sampsA$batches==b)
         if (j > cnt ){
-          load(file=paste("samps_batch",as.character(b),"_synth.RData",sep=""))
+          load(file=paste("samps_batch",as.character(b),".RData",sep=""))
         } else{
           samps$data = c(); samps$batches = c(); samps$dataT = c();
           samps$interv = c(); samps$ix = c()
@@ -45,7 +45,7 @@ save_samps_by_file_mult3 <- function(DAG2,nsamps=200){
           samps$ix = c(samps$ix, which(sampsA$batches[sampsA$interv==jj]==b))
         }
         
-        save(file=paste("samps_batch",as.character(b),"_synth.RData",sep=""),samps)
+        save(file=paste("samps_batch",as.character(b),".RData",sep=""),samps)
       }
       
       cnt = 0
