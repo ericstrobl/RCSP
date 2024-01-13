@@ -16,7 +16,7 @@ hist(RCS_age)
 alg_out = RCSP(samps,desL)  ## takes ~2 hours
 
 # Compute D-SD
-alg_out_DSD = DSD(samps,desL)  ## takes ~2 hours
+alg_out_DSD = DSDP(samps,desL)  ## takes ~2 hours
 
 # histogram of D-RCS vs D-SD
 hist(sqrt(colMeans(alg_out$RCS^2)))
