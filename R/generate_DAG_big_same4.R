@@ -7,17 +7,20 @@ generate_DAG_big_same4 <- function(p,en,nHK=5,sc_nbatch=10,bulk_nbatch=3){
   DAGs = list()
   DAGs$Y = 0
   DAGs$HK = 0
-  
+  print(1)
   graph = Matrix(0,p,p,sparse=TRUE)
+  print(graph)
   while( (DAGs$Y != p) | (length(DAGs$HK)<nHK)  ){
     
     ### SINGLE CELL
     
     samplesB = rbinom(N/2,1, en/(p-1) ); # sample edges
+    print(2)
     graph[upper.tri(graph, diag=FALSE)] <- samplesB; # put in edges in upper triangular
     
     ord = sample(1:p,p,replace=FALSE) # permute order
     DAGs$graph = graph[ord,ord]
+    print(3)
     # ord2 = rep(0,p)
     # ord2[ord] = 1:p
     DAGs$ord = ord
