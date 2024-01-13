@@ -127,7 +127,6 @@ head(fgseaRes[order(pval), ])
 require(dplyr)
 gene_name = "MNT"
 plot(data.umap[,1],data.umap[,2],col=make_colour_gradient(ntile(abs(alg_out$RCS[,alg_out$genes==gene_name]),4)))
-write.csv(file="UMAP_MNT_MS_controls0.csv",cbind(data.umap,ntile(abs(alg_out$RCS[,alg_out$genes==gene_name]), 4)))
 
 # graded severity UMAP embedding
 plot(data.umap[,1],data.umap[,2],col=make_colour_gradient(ntile(samps$data[,ncol(samps$data)], 4)))
