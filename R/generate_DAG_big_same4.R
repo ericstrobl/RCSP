@@ -1,13 +1,11 @@
 generate_DAG_big_same4 <- function(p,en,nHK=5,sc_nbatch=10,bulk_nbatch=3){
   
-  require(Matrix)
-  
   N = p*p - p;
   
   DAGs = list()
   DAGs$Y = 0
   DAGs$HK = 0
-  graph = Matrix(0,p,p,sparse=TRUE)
+  graph = matrix(0,p,p)
   while( (DAGs$Y != p) | (length(DAGs$HK)<nHK)  ){
     
     ### SINGLE CELL
@@ -21,7 +19,6 @@ generate_DAG_big_same4 <- function(p,en,nHK=5,sc_nbatch=10,bulk_nbatch=3){
     # ord2[ord] = 1:p
     DAGs$ord = ord
 
-    print(DAGs$graph)
     Ys = which( (rowSums(DAGs$graph)==0) & (colSums(DAGs$graph)>0) ) # no children, some observed parents
     
     HK = which( (rowSums(DAGs$graph)==0) & (colSums(DAGs$graph)==0) ) # no children and no parents
