@@ -154,7 +154,7 @@ print(colMeans(Signs))
 ### LiNGAM and ANM
 
 nvar = 100
-nHK = 5
+nHK = 0
 
 nreps = 100
 ANM_res = matrix(0,200,nreps)
