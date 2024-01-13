@@ -27,7 +27,7 @@ Generate 200 samples of bulk RNA-seq data:
 > samps = sample_DAG_NB_linear(200,DAG$DAGb)
 
 Run RCSP:
-> out = RCSP(samps)
+> out = RCSP(samps, reg="MARS")
 
 # Run RCSP on AMD data
 Load bulk RNA-seq data:
