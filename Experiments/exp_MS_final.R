@@ -1,11 +1,11 @@
 
 
 # load bulk RNA-seq data
-load("samps_bulk_MS2.RData")
+load("samps_bulk_MS.RData")
 genes = colnames(samps$data)
 
 # load precomputed descendants
-load("desL_nonsparse_MS.RData")
+load("desL_MS.RData")
 
 # age histogram
 RCS_age = get_ctrl_RCE_nonsparse(samps,2)
@@ -13,10 +13,12 @@ sqrt(mean(RCS_age^2))
 hist(RCS_age)
 
 # Run RCSP
-alg_out = RCSP(samps,desL)  ## takes ~2 hours
+# alg_out = RCSP(samps,desL)  ## takes ~2 hours
+load("RCSP_MS.RData") # in Alg_outputs_MS.zip
 
 # Compute D-SD
-alg_out_DSD = DSDP(samps,desL)  ## takes ~2 hours
+# alg_out_DSD = DSDP(samps,desL)  ## takes ~2 hours
+load("DSDP_MS.RData") # in Alg_outputs_MS.zip
 
 # histogram of D-RCS vs D-SD
 hist(sqrt(colMeans(alg_out$RCS^2)))
