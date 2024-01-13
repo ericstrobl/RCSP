@@ -1,7 +1,6 @@
 root_SS3 <- function(tr,out,p,err=F){
   
   require(fastcluster)
-  require(pdfCluster)
  
   cl_RE <- hclust.vector(abs(out$REs), method="ward")
   MSE_REs_out = matrix(0,nrow(tr$REs),p-1)
