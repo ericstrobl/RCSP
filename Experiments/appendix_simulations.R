@@ -164,7 +164,7 @@ nsamps = c(100,200,400,800,1600,3200,6400)
 RMSE_ANM = matrix(0,nreps,length(nsamps))
 RMSE_LiNGAM = matrix(0,nreps,length(nsamps))
 
-for (s in 5:5){
+for (s in 1:length(nsamps)){
   for (i in 1:nreps){
     
     print(i)
