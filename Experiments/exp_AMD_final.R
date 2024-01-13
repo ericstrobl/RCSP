@@ -105,9 +105,9 @@ head(fgseaRes[order(pval), ])
 
 # UMAP embedding
 require(uwot)
-cov0 = cov(abs(cbind(alg_out$RCS,RCE_age)))
+cov0 = cov(abs(cbind(alg_out$RCS,RCS_age)))
 eig = eigen(cov0)
-data0 = abs(cbind(alg_out$RCS,RCE_age)) %*% eig$vectors[,1:10]
+data0 = abs(cbind(alg_out$RCS,RCS_age)) %*% eig$vectors[,1:10]
 
 data.umap = uwot::umap(data0)
 plot(data.umap[,1],data.umap[,2])
