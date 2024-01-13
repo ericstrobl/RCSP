@@ -1,4 +1,4 @@
-RCSP <- function(bulk_samps, desL = NULL, reg="KRR", verbose = FALSE){# needs bulk samples
+RCSP <- function(bulk_samps, desL = NULL, reg="KRR", verbose = FALSE){
   #
   # bulk_samps denotes a list of bulk RNAseq samples, where:
   #     (1) bulk_samps$data contains RNA counts
