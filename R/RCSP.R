@@ -32,24 +32,18 @@ RCSP <- function(bulk_samps,reg="KRR"){# needs bulk samples
     # print(i)
     
     pa = c()
-    for (k in setdiff(interv,desL[[i]])){# variables that are not descendants of i or stable
+    for (k in setdiff(interv,desL[[i]])){# variables that are not descendants of i
       if (interv[i] %in% desL[[which(interv==k)]]){ # variables that are ancestors of i
         pa = c(pa, k)#
       }
     }
-    
-    if (length(stable)==0){
-      L = c()
-    } else{
-      L = rowSums(data)
-    }
 
     if (reg == "KRR"){
-      psi1_1 = CV_KRR(cbind(data[,c(pa,interv[i])],L,ind,bulk_samps$controls),data[,Yi],maxY,minY)
-      psi1_2 = CV_KRR(cbind(data[,pa],L,ind,bulk_samps$controls),data[,Yi],maxY,minY)
+      psi1_1 = CV_KRR(cbind(data[,c(pa,interv[i])],ind,bulk_samps$controls),data[,Yi],maxY,minY)
+      psi1_2 = CV_KRR(cbind(data[,pa],ind,bulk_samps$controls),data[,Yi],maxY,minY)
     } else if (reg == "KRR"){
-      psi1_1 = earth(cbind(data[,c(pa,interv[i])],L,ind,bulk_samps$controls),data[,Yi])$fitted.values
-      psi1_2 = earth(cbind(data[,pa],L,ind,bulk_samps$controls),data[,Yi])$fitted.values
+      psi1_1 = earth(cbind(data[,c(pa,interv[i])],ind,bulk_samps$controls),data[,Yi])$fitted.values
+      psi1_2 = earth(cbind(data[,pa],ind,bulk_samps$controls),data[,Yi])$fitted.values
     }
     
     RCS[,i] = psi1_1 - psi1_2#
