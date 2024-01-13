@@ -1,11 +1,11 @@
 
 
 # load bulk RNA-seq data
-load("samps_bulk_AMD2.RData")
+load("samps_bulk_AMD.RData")
 genes = colnames(samps$data)
 
 # load precomputed descendants
-load("desL_AMDS.RData")
+load("desL_AMD.RData")
 
 # age histogram
 RCS_age = get_ctrl_RCE_nonsparse(samps,2)
