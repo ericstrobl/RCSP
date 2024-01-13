@@ -8,7 +8,7 @@ genes = colnames(samps$data)
 load("desL_AMD.RData")
 
 # age histogram
-RCS_age = get_ctrl_RCE_nonsparse(samps,2)
+RCS_age = get_ctrl_RCE_nonsparse(samps,1)
 sqrt(mean(RCS_age^2))
 hist(abs(RCS_age))
 
