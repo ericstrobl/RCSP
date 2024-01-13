@@ -1,0 +1,158 @@
+
+
+# load bulk RNA-seq data
+load("samps_bulk_MS2.RData")
+genes = colnames(samps$data)
+
+# load precomputed descendants
+load("desL_nonsparse_MS.RData")
+
+# age histogram
+RCS_age = get_ctrl_RCE_nonsparse(samps,2)
+sqrt(mean(RCS_age^2))
+hist(RCS_age)
+
+# Run RCSP
+alg_out = RCSP(samps,desL)  ## takes ~2 hours
+
+# Compute D-SD
+alg_out_DSD = DSD(samps,desL)  ## takes ~2 hours
+
+# histogram of D-RCS vs D-SD
+hist(sqrt(colMeans(alg_out$RCS^2)))
+hist(sqrt(colMeans(alg_out_DSD$RCS^2)))
+
+# D-RCS values of genes
+ix = order(sqrt(colMeans(alg_out$RCS^2)),decreasing=TRUE)
+cbind(alg_out$genes[ix],sqrt(colMeans(alg_out$RCS^2))[ix])
+
+# pathway enrichment analysis
+
+# require(fastcluster)
+# cl <- hclust.vector(data.umap, method="ward") # use this for cluster-specific enrichment analysis
+# ix = cutree(cl, k = 3)
+
+stats = c()
+for (j in 1:ncol(alg_out$RCS)){
+  stats = c(stats,sqrt(mean(alg_out$RCS[,j]^2)))
+  # stats = c(stats,sqrt(mean(alg_out$RCS[ix==3,j]^2))) # use this for cluster-specific enrichment analysis, ix=3 means cluster 3
+}
+genesC = alg_out$genes
+
+require(org.Hs.eg.db)
+hs <- org.Hs.eg.db
+entrez = AnnotationDbi::select(org.Hs.eg.db, keys = genesC, columns = c("ENTREZID", "SYMBOL"), keytype = "SYMBOL")
+ix = match(genesC,entrez$SYMBOL)
+iR = which(is.na(entrez$ENTREZID[ix]))
+stats = stats[-iR]
+entrez = as.character(entrez$ENTREZID[ix[-iR]])
+names(stats) = entrez
+
+require(fgsea)
+pathways <- reactomePathways(names(stats))
+
+fgseaRes <- fgsea(pathways, stats, nPermSimple = 100000, scoreType="pos")
+
+collapsedPathways <- collapsePathways(fgseaRes[order(pval)], pathways, stats)
+print(fgseaRes[pathway %in% collapsedPathways$mainPathways][order(pval)][1:20,])
+
+# drug enrichment analysis
+
+# require(fastcluster)
+# cl <- hclust.vector(data.umap, method="ward") # use this for cluster-specific enrichment analysis
+# ix = cutree(cl, k = 3)
+
+stats = c()
+for (j in 1:ncol(alg_out$RCS)){
+  stats = c(stats,sqrt(mean(alg_out$RCS[,j]^2)))
+  # stats = c(stats,sqrt(mean(alg_out$RCS[ix==3,j]^2))) # use this for cluster-specific enrichment analysis, ix=3 means cluster 3
+}
+genesC = alg_out$genes
+
+require(org.Hs.eg.db)
+hs <- org.Hs.eg.db
+entrez = AnnotationDbi::select(org.Hs.eg.db, keys = genesC, columns = c("ENTREZID", "SYMBOL"), keytype = "SYMBOL")
+ix = match(genesC,entrez$SYMBOL)
+iR = which(is.na(entrez$ENTREZID[ix]))
+stats = stats[-iR]
+entrez = as.character(entrez$ENTREZID[ix[-iR]])
+names(stats) = entrez
+
+library(org.Hs.eg.db)
+dsig <- readr::read_tsv("C:\\Users\\ericv\\AppData\\Local/R/cache/R/BiocFileCache/48581a6d20e0_DSigDB_All_detailed.txt")
+
+drug2gene=dsig[, c("Drug", "Gene")]
+
+drugs = unique(dsig$Drug)
+drug2gene = vector("list", length(drugs))
+entrez = AnnotationDbi::select(org.Hs.eg.db, keys = dsig$Gene, columns = c("ENTREZID", "SYMBOL"), keytype = "SYMBOL")
+ix = match(dsig$Gene,entrez$SYMBOL)
+entrez = entrez$ENTREZID[ix]
+
+for (d in 1:length(drugs)){
+  id = which(dsig$Drug == drugs[d])
+  ee = unique(entrez[id])
+  drug2gene[[d]] <- ee[!is.na(ee)]
+  
+}
+names(drug2gene) = drugs
+
+fgseaRes <- fgsea(drug2gene, stats, nPermSimple = 100000, scoreType="pos")
+
+head(fgseaRes[order(pval), ])
+-log(fgseaRes[order(pval)][1:6,padj])
+
+# UMAP embedding
+require(uwot)
+cov0 = cov(abs(cbind(alg_out$RCS,RCE_age)))
+eig = eigen(cov0)
+data0 = abs(cbind(alg_out$RCS,RCE_age)) %*% eig$vectors[,1:10]
+
+data.umap = uwot::umap(data0)
+plot(data.umap[,1],data.umap[,2])
+
+# cluster SS plot
+cl <- hclust.vector(data.umap, method="ward")
+plot(rev(cl$height)[1:20])
+ix = cutree(cl, k = 3)
+
+# UMAP embedding with clusters
+plot(data.umap,col=ix)
+
+# graded gene UMAP embedding
+require(dplyr)
+gene_name = "MNT"
+plot(data.umap[,1],data.umap[,2],col=make_colour_gradient(ntile(abs(alg_out$RCS[,alg_out$genes==gene_name]),4)))
+write.csv(file="UMAP_MNT_MS_controls0.csv",cbind(data.umap,ntile(abs(alg_out$RCS[,alg_out$genes==gene_name]), 4)))
+
+# graded severity UMAP embedding
+plot(data.umap[,1],data.umap[,2],col=make_colour_gradient(ntile(samps$data[,ncol(samps$data)], 4)))
+
+## types
+require(fastcluster)
+cl <- hclust.vector(data.umap, method="ward")
+ix = cutree(cl, k = 3)
+
+table(samps$types[ix==1])/sum(ix==1)
+table(samps$types[ix==2])/sum(ix==2)
+table(samps$types[ix==3])/sum(ix==3)
+
+
+### correlation with UMAP dimension
+ix = order(sqrt(colMeans(alg_out$RCS^2)),decreasing=TRUE)
+
+stats = c()
+ps = c()
+CIs = c()
+dim = 2 # choose UMAP dimension
+for (j in 1:30){
+  stats = c(stats,cor.test(data.umap[,dim],abs(alg_out$RCS[,ix[j]]),method="spearman")$estimate)
+  ps = c(ps,cor.test(data.umap[,dim],abs(alg_out$RCS[,ix[j]]),method="spearman")$p.value)
+  CIs = rbind(CIs,spearman_CI(data.umap[,dim],abs(alg_out$RCS[,ix[j]])))
+}
+iy = order(abs(stats),decreasing=TRUE)
+mat = cbind(alg_out$genes[ix[1:30]][iy],stats[iy],CIs[iy,])
+require(qvalue)
+qvalue(ps[iy],pi0=1)
+  
+  
