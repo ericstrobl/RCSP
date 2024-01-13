@@ -115,6 +115,7 @@ data.umap = uwot::umap(data0)
 plot(data.umap[,1],data.umap[,2])
 
 # cluster SS plot
+require(fastcluster)
 cl <- hclust.vector(data.umap, method="ward")
 plot(rev(cl$height)[1:20])
 ix = cutree(cl, k = 3)
