@@ -13,10 +13,12 @@ sqrt(mean(RCS_age^2))
 hist(RCS_age)
 
 # Run RCSP
-alg_out = RCSP(samps,desL)  ## takes ~8 hours
+# alg_out = RCSP(samps,desL)  ## takes ~8 hours
+load("RCSP_AMD.RData")
 
 # Compute D-SD
-alg_out_DSD = DSDP(samps,desL)  ## takes ~8 hours
+# alg_out_DSD = DSDP(samps,desL)  ## takes ~8 hours
+load("DSDP_AMD.RData")
 
 # histogram of D-RCS vs D-SD
 hist(sqrt(colMeans(alg_out$RCS^2)))
