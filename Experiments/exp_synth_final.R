@@ -45,7 +45,7 @@ for (i in 1:reps){
   
   print("RCSP")
   ptm <- proc.time()
-  shaps = RCSP_bulk_bound_sparse(samps,desL,stable)  ##
+  shaps = RCSP(samps,desL,reg="MARS")  ##
   RCSP_res[[i]]DAG$time = (proc.time() - ptm)[3]
   RCSP_res[[i]]DAG$RMSE_RE = compute_RMSE3(tr,shaps,ncol(samps$data))$RMSE_REs
   RCSP_res[[i]]DAG$clusters = root_SS3(tr,shaps,ncol(samps$data))
