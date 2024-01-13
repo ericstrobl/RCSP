@@ -1,4 +1,4 @@
-RCSP <- function(bulk_samps, desL = NULL, reg="KRR"){# needs bulk samples
+RCSP <- function(bulk_samps, desL = NULL, reg="KRR", verbose = FALSE){# needs bulk samples
   #
   # bulk_samps denotes a list of bulk RNAseq samples, where:
   #     (1) bulk_samps$data contains RNA counts
@@ -29,7 +29,7 @@ RCSP <- function(bulk_samps, desL = NULL, reg="KRR"){# needs bulk samples
   minY = min(data[,Yi])
   
   for (i in seq_len(length(interv)) ){#
-    # print(i)
+    if (verbose) print(i)
     
     pa = c()
     for (k in setdiff(interv,desL[[i]])){# variables that are not descendants of i
