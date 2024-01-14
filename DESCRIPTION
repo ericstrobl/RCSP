@@ -1,10 +1,10 @@
 Package: RCSP
 Type: Package
-Title: Root Causal Strength from Perturbations
+Title: Root Causal Strength using Perturbations
 Version: 0.1.0
 Author: Eric V. Strobl
 Maintainer: Eric V. Strobl <ericvonstrobl@gmail.com>
-Description: Computes root causal strength scores to identify root causal genes
+Description: Computes root causal strength to identify root causal genes
 Depends: MASS, pcalg, earth, fastcluster, uwot, dplyr, Rfast
 License: CC BY-NC-SA 4.0
 Encoding: UTF-8
