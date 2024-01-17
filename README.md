@@ -18,7 +18,7 @@ The Experiments folder contains any additional code needed to replicate the expe
 
 > library(RCSP)
 
-# Run RCSP on sythetic data
+# Run RCSP on synthetic data
 Generate DAG over 100 variables with an expected neighborhood size of 2:
 > DAG = generate_DAG_big_same4(p=100,en=2)
 
