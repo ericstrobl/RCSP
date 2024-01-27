@@ -36,7 +36,7 @@ Download Bulk_data.zip, unzip its contents and place them into the working direc
 > load("samps_bulk_AMD.RData") 
 
 Load descendants of each variable precomputed from Perturb-seq:
-> load("desL_AMD.RData") # processed Perturb-seq data will be uploaded on Zenodo (200 MB)
+> load("desL_AMD.RData") 
 
 Run RCSP:
 > out = RCSP(samps,desL) # takes about 8 hours on my machine (2.30 GHz CPU, 16 GB RAM)
@@ -46,7 +46,7 @@ Download Bulk_data.zip, unzip its contents and place them into the working direc
 > load("samps_bulk_MS.RData")
 
 Load descendants of each variable precomputed from Perturb-seq:
-> load("desL_MS.RData") # processed Perturb-seq data will be uploaded on Zenodo (4.5 GB)
+> load("desL_MS.RData")
 
 Run RCSP:
 > out = RCSP(samps,desL) # takes about 2 hours on my machine
