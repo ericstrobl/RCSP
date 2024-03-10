@@ -35,7 +35,7 @@ Run RCSP:
 Download Bulk_data.zip, unzip its contents and place them into the working directory. Then load bulk RNA-seq data:
 > load("samps_bulk_AMD.RData") 
 
-Load descendants of each variable precomputed from Perturb-seq:
+Download Alg_outputs_AMD.zip and load descendants of each variable precomputed from Perturb-seq:
 > load("desL_AMD.RData") 
 
 Run RCSP:
@@ -45,7 +45,7 @@ Run RCSP:
 Download Bulk_data.zip, unzip its contents and place them into the working directory. Then load bulk RNA-seq data:
 > load("samps_bulk_MS.RData")
 
-Load descendants of each variable precomputed from Perturb-seq:
+Download Alg_outputs_MS.zip and load descendants of each variable precomputed from Perturb-seq:
 > load("desL_MS.RData")
 
 Run RCSP:
