@@ -1,4 +1,4 @@
-find_des_MS_final <- function(samps,ctrl_ind = NULL,alpha=0.01){
+find_des_MS_final <- function(alpha=0.01){
   
   ### find variables that are d-connected to Y in BULK
   load("samps_bulk_MS.RData")#
