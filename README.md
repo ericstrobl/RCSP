@@ -53,13 +53,15 @@ Run RCSP:
 
 # Compute the list of descendants ('desL' files)
 The Perturb-seq datasets are large, so we provide the desL files pre-computed. However, if you would like to compute the files on your own, then download 'ReplogleWeissman2022_rpe1.h5ad' from https://zenodo.org/records/10044268 and divide the h5ad file into manageable chunks:
-> save_data_chunks_RPE1()
+> load("samps_bulk_AMD.RData")
+> save_data_chunks_RPE1(colnames(samps$data),"directory/to/ReplogleWeissman2022_rpe1.h5ad")
 
 Then compute desL for AMD:
 > desL_AMD = find_des_AMD_final()$desL
 
 Similarly, download 'ReplogleWeissman2022_K562_gwps.h5ad' from https://zenodo.org/records/10044268 and divide the h5ad file into manageable chunks:
-> save_data_chunks_K562()
+> load("samps_bulk_AMD.RData")
+> save_data_chunks_K562(colnames(samps$data),"directory/to/ReplogleWeissman2022_K562_gwps.h5ad")
 
 Compute desL for MS:
 > desL_MS = find_des_MS_final()$desL
