@@ -1,4 +1,4 @@
-# Root Causal Strength using Perturbations (RCSP)
+# Root Causal Strengthttps://github.com/ericstrobl/RCSP/tree/mainh using Perturbations (RCSP)
 
 This is an R package implementing RCSP, an algorithm for discovering root causal genes from a combination of bulk RNA-seq and Perturb-seq data, each derived from possibly independent studies. RCSP estimates the root causal strength of a gene $X_i$ on a target variable $Y$. The root causal strength is defined as $$\Phi_i = |E(Y|\textnormal{Pa}(X_i),X_i) - E(Y|\textnormal{Pa}(X_i))| = |E(Y|\textnormal{Pa}(X_i),E_i) - E(Y|\textnormal{Pa}(X_i))|$$ and thus measures the absolute root causal effect of the root vertex error term $E_i$ on $Y$ given $\textnormal{Pa}(X_i)$. We say that $X_i$ is a root causal gene if $\Phi_i > 0$.
 
@@ -50,3 +50,17 @@ Download Alg_outputs_MS.zip and load descendants of each variable precomputed fr
 
 Run RCSP:
 > out = RCSP(samps,desL) # takes about 2 hours on my machine
+
+# Compute the list of descendants ('desL' files) from scratch
+Download 'ReplogleWeissman2022_rpe1.h5ad' from https://zenodo.org/records/10044268 and divide the h5ad file into manageable chunks:
+> save_data_chunks_RPE1()
+
+Compute desL for AMD:
+> desL_AMD = find_des_AMD_final()$desL
+
+Download 'ReplogleWeissman2022_K562_gwps.h5ad' from https://zenodo.org/records/10044268 and divide the h5ad file into manageable chunks:
+> save_data_chunks_K562()
+
+Compute desL for AMD:
+> desL_MS = find_des_MS_final()$desL
+
