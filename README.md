@@ -61,6 +61,6 @@ Compute desL for AMD:
 Download 'ReplogleWeissman2022_K562_gwps.h5ad' from https://zenodo.org/records/10044268 and divide the h5ad file into manageable chunks:
 > save_data_chunks_K562()
 
-Compute desL for AMD:
+Compute desL for MS:
 > desL_MS = find_des_MS_final()$desL
 
