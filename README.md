@@ -51,7 +51,7 @@ Download Alg_outputs_MS.zip and load descendants of each variable precomputed fr
 Run RCSP:
 > out = RCSP(samps,desL) # takes about 2 hours on my machine
 
-# Compute the list of descendants ('desL' files) from scratch
+# Compute the list of descendants ('desL' files)
 Download 'ReplogleWeissman2022_rpe1.h5ad' from https://zenodo.org/records/10044268 and divide the h5ad file into manageable chunks:
 > save_data_chunks_RPE1()
 
