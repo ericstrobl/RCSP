@@ -1,4 +1,4 @@
-DSDP <- function(bulk_samps,desL=NULL,reg="KRR",verbose=FALSE){# needs bulk samples
+DSDP <- function(bulk_samps,stable=NULL,desL=NULL,reg="KRR",verbose=FALSE){# needs bulk samples
   # Similar to the RCSP algorithm but computes Deviation of Statistical Dependence (D-SD) by removing the conditioning on the surrogate ancestors
   # 
   # bulk_samps denotes a list of bulk RNAseq samples, where:
