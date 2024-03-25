@@ -4,7 +4,7 @@ This is an R package implementing RCSP, an algorithm for discovering root causal
 
 The academic article describing RCSP in detail can be found [here](https://www.biorxiv.org/content/10.1101/2024.01.13.574491v3). Please cite the article if you use any of the code in this repository.
 
-The Experiments folder contains any additional code needed to replicate the experimental results in the paper.
+The Experiments folder contains any additional code needed to replicate the experimental results in the paper. All code was tested in R version 4.3.1.
 
 # Installation
 
@@ -31,6 +31,9 @@ Generate 200 samples of bulk RNA-seq data:
 Run RCSP:
 > out = RCSP(samps, reg="MARS")
 
+Print the signed RCS value of each gene:
+> print(cbind(out$genes,out$RCS))
+
 # Run RCSP on AMD data
 Download Bulk_data.zip, unzip its contents and place them into the working directory. Then load bulk RNA-seq data:
 > load("samps_bulk_AMD.RData") 
@@ -50,6 +53,9 @@ Download Alg_outputs_MS.zip and load descendants of each variable precomputed fr
 
 Run RCSP:
 > out = RCSP(samps,desL) # takes about 2 hours on my machine
+
+Print the signed RCS value of each gene:
+> print(cbind(out$genes,out$RCS))
 
 # Compute the list of descendants ('desL' files)
 The Perturb-seq datasets are large, so we provide the desL files pre-computed. However, if you would like to compute the files on your own, then download 'ReplogleWeissman2022_rpe1.h5ad' from https://zenodo.org/records/10044268 and divide the h5ad file into manageable chunks:
