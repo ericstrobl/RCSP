@@ -31,7 +31,7 @@ Generate 200 samples of bulk RNA-seq data:
 Run RCSP:
 > out = RCSP(samps, reg="MARS")
 
-Print the signed RCS value of each gene:
+Print the signed (before taking absolute value) RCS value of each gene:
 > print(cbind(out$genes,out$RCS))
 
 # Run RCSP on AMD data
@@ -43,6 +43,9 @@ Download Alg_outputs_AMD.zip and load descendants of each variable precomputed f
 
 Run RCSP:
 > out = RCSP(samps,desL) # takes about 8 hours on my machine (2.30 GHz CPU, 16 GB RAM)
+
+Print the signed RCS value of each gene:
+> print(cbind(out$genes,out$RCS))
 
 # Run RCSP on MS data
 Download Bulk_data.zip, unzip its contents and place them into the working directory. Then load bulk RNA-seq data:
